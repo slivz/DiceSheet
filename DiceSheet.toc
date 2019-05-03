@@ -1,0 +1,13 @@
+## Interface: 80100
+## Title: DiceSheet
+## Notes: A basic character sheet addon
+## Author: silvz
+## Version: 0.1
+## SavedVariables: DiceSheet_Data
+
+embeds.xml
+
+DiceSheet.lua
+Core/Database.lua
+Core/Config.lua
+Core/GUI.lua
