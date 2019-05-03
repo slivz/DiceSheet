@@ -16,6 +16,7 @@ end
 function Me:OnEnable()
     self:InitDB() -- database initialization
     self:InitConfig() -- configuration initialization
+    self:InitGUI() -- User Interface init
 end
 
 -- inverse of above

@@ -8,6 +8,8 @@
 embeds.xml
 
 DiceSheet.lua
-Core/Database.lua
-Core/Config.lua
-Core/GUI.lua
+Core\Database.lua
+Core\Config.lua
+Core\GUI.lua
+
+Core\gui\GUI.xml
