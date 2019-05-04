@@ -1,61 +1,61 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
-    
+
     <!-- ContentSheet Frame Template -->
     <Frame name="DS_ContentSheet_Frame" virtual="true">
         <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-			<EdgeSize val="16"/>
-			<TileSize val="380" />
-			<BackgroundInsets left="3" right="3" top="3" bottom="3" />
-		</Backdrop>
+            <EdgeSize val="16"/>
+            <TileSize val="380" />
+            <BackgroundInsets left="3" right="3" top="3" bottom="3" />
+        </Backdrop>
     </Frame>
-    
+
     <!-- ContentSheet Frame with Title Template -->
     <Frame name="DS_ContentSheet_NamedFrame" virtual="true">
         <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-			<EdgeSize val="16"/>
-			<TileSize val="380" />
-			<BackgroundInsets left="3" right="3" top="3" bottom="3" />
-		</Backdrop>
+            <EdgeSize val="16"/>
+            <TileSize val="380" />
+            <BackgroundInsets left="3" right="3" top="3" bottom="3" />
+        </Backdrop>
         <Frames>
             <Frame name="$parent_CaptionPanel" parentKey="title">
-				<Anchors>
-					<Anchor point="TOP" x="0" y="5"/>
-				</Anchors>
-				<Size x="150" y="22"/>
+                <Anchors>
+                    <Anchor point="TOP" x="0" y="5"/>
+                </Anchors>
+                <Size x="150" y="22"/>
                 <Backdrop bgFile="Interface\BankFrame\Bank-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-					<EdgeSize val="16"/>
-					<TileSize>
-						<AbsValue val="100"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left="4" right="2" top="2" bottom="2"/>
-					</BackgroundInsets>
-				</Backdrop>
+                    <EdgeSize val="16"/>
+                    <TileSize>
+                        <AbsValue val="100"/>
+                    </TileSize>
+                    <BackgroundInsets>
+                        <AbsInset left="4" right="2" top="2" bottom="2"/>
+                    </BackgroundInsets>
+                </Backdrop>
                 <Layers>
                     <Layer level="OVERLAY">
                         <FontString name="$parentText" parentKey="captionText" text="[Title Text]" inherits="GameFontNormal" wordwrap="false">
-							<Anchors>
-								<Anchor point="LEFT" x="10" y="0"/>
-								<Anchor point="RIGHT" x="-10" y="0"/>
-							</Anchors>
-							<Color r="0.95" g="0.95" b="0.95"/>
+                            <Anchors>
+                                <Anchor point="LEFT" x="10" y="0"/>
+                                <Anchor point="RIGHT" x="-10" y="0"/>
+                            </Anchors>
+                            <Color r="0.95" g="0.95" b="0.95"/>
                         </FontString>
                     </Layer>
                 </Layers>
             </Frame>
         </Frames>
     </Frame>
-    
+
     <!-- ContentSheet Template -->
-	<Frame name="DS_ContentSheet_Template" virtual="true">
-		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-			<EdgeSize val="16"/>
-		</Backdrop>
+    <Frame name="DS_ContentSheet_Template" virtual="true">
+        <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize val="16"/>
+        </Backdrop>
         <Frames>
             <Frame name="DS_ContentSheet_Header" inherits="DS_ContentSheet_Frame">
-				<Size x="0" y="90"/>
+                <Size x="0" y="90"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-10" y="0"/>
                     <Anchor point="LEFT" x="10" y="0"/>
@@ -63,20 +63,20 @@
                 </Anchors>
             </Frame>
             <Frame name="DS_ContentSheet_Attributes" inherits="DS_ContentSheet_NamedFrame">
-				<Size x="0" y="100"/>
+                <Size x="0" y="100"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-10" y="0"/>
                     <Anchor point="LEFT" x="10" y="0"/>
-					<Anchor point="TOP" relativePoint="BOTTOM" 
+                    <Anchor point="TOP" relativePoint="BOTTOM" 
                         relativeTo="DS_ContentSheet_Header" x="0" y="-10"/>
                 </Anchors>
             </Frame>
             <Frame name="DS_ContentSheet_Skills" inherits="DS_ContentSheet_NamedFrame">
-				<Size x="0" y="240"/>
+                <Size x="0" y="240"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-10" y="0"/>
                     <Anchor point="LEFT" x="10" y="0"/>
-					<Anchor point="TOP" relativePoint="BOTTOM" 
+                    <Anchor point="TOP" relativePoint="BOTTOM" 
                         relativeTo="DS_ContentSheet_Attributes" x="0" y="-11"/>
                 </Anchors>
             </Frame>

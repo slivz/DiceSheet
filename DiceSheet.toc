@@ -11,5 +11,8 @@ DiceSheet.lua
 Core\Database.lua
 Core\Config.lua
 Core\GUI.lua
+Core\util.lua
+
+Core\StatDefines.lua
 
 Core\gui\GUI.xml

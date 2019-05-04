@@ -36,29 +36,27 @@ local function loadCharacterSheet(unitName)
     local attributeW, attributeH = attributePanel:GetSize()
     attributePanel.title.captionText:SetText("Attributes")
     
-    local attributeList = {
-        "strength",
-        "dexterity",
-        "constitution",
-        "charisma",
-        "intelligence",
-        "wisdom"
-    }
-    
     -- attach dictionary to table
     -- we will create a frame for each attribute if it doesnt exist
     -- we will reuse it an update the values if it does
+    local i = 1
     local e = 0
     if not attributePanel.attibutes then attributePanel.attibutes = {} end
-    for k, v in ipairs(attributeList) do
-        if not attributePanel.attibutes[v] then      
+    for k, v in ipairs(Me.StatDefines.attributes) do
+        if not attributePanel.attibutes[v.short] then      
             -- create
-            if (k-1) % 3 == 0 then e = e + 1 end
-            local frame = CreateFrame("Frame", nil, attributePanel, "DS_Misc_TitledTextDisplay")
-            frame:SetPoint("TOPLEFT", 10 + (attributeW/3 * ((k-1) % 3)), 0 - (20 + (e-1) * 40))
-            frame.captionTitle:SetText(v)
+            if i % 4 == 0 then i = 1 end
+            if i == 1 then e = e + 1 end
             
-            attributePanel.attibutes[v] = frame
+            local f = CreateFrame("EditBox", nil, attributePanel, "DS_AttributeBox")
+            f:SetPoint("TOPLEFT", (attributeW/4 * i) - f:GetWidth()/2, 0 - (19 + (e-1) * 38))
+            f.title:SetText(v.short)
+            f:SetText('+0')
+            f.disabled = true
+            f.data = v
+            
+            attributePanel.attibutes[v.short] = f
+            i = i + 1
         else
             -- reuse
         end
@@ -68,46 +66,21 @@ local function loadCharacterSheet(unitName)
     local skillW, skillH = skillPanel:GetSize()
     skillPanel.title.captionText:SetText("Skills")
     
-    local skillList = {
-        'acrobatics',
-        'appraise',
-        'bluff',
-        'climb',
-        'craft',
-        'diplomacy',
-        'disable device',
-        'disguise',
-        'escape artist',
-        'fly',
-        'handle animal',
-        'heal',
-        'intimidate',
-        'knowledge',
-        'linguistics',
-        'perception',
-        'perform',
-        'profession',
-        'ride',
-        'sense motive',
-        'sleight of hand',
-        'spellcraft',
-        'stealth',
-        'survival',
-        'swim',
-        'use magic device'
-    }
-    
+    local i = 1
     local e = 0
     if not skillPanel.skills then skillPanel.skills = {} end
-    for k, v in ipairs(skillList) do
-        if not skillPanel.skills[v] then
+    for k, v in ipairs(Me.StatDefines.skills) do
+        if not skillPanel.skills[v.name] then
             -- create
-            if (k-1) % 3 == 0 then e = e + 1 end
+            if i % 4 == 0 then i = 1 end
+            if i == 1 then e = e + 1 end
             local frame = CreateFrame("Frame", nil, skillPanel, "DS_Misc_TextDisplay")
-            frame:SetPoint("TOPLEFT", 10 + ((skillW/3) * ((k-1) % 3)), 0 - (20 + (e-1) * 20))
-            frame.captionText:SetText(v)
+            frame:SetPoint("TOPLEFT", 10 + ((skillW/3) * ((i-1) % 3)), 0 - (20 + (e-1) * 20))
+            frame.captionText:SetText(v.name)
+            frame.data = v
             
-            skillPanel.skills[v] = frame
+            skillPanel.skills[v.name] = frame
+            i = i + 1
         else
             -- reuse
         end

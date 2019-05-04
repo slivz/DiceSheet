@@ -41,4 +41,85 @@
             </Layer>
         </Layers>
     </Frame>
+    
+	<EditBox name="DS_AttributeBox" letters="0" 
+        historyLines="0" autoFocus="false" virtual="true"
+        JUSTIFYV="MIDDLE" JUSTIFYH="CENTER">
+		<Size x="32" y="44"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Left" file="Interface\Common\Common-Input-Border">
+					<Size x="12" y="56"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-19" y="0"/>
+					</Anchors>
+					<TexCoords left="0" right="0.09375" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture parentKey="Right" file="Interface\Common\Common-Input-Border">
+					<Size x="12" y="56"/>
+					<Anchors>
+						<Anchor point="TOPRIGHT" x="19" y="0"/>
+					</Anchors>
+					<TexCoords left="0.90625" right="1.0" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture parentKey="Center" file="Interface\Common\Common-Input-Border">
+					<Size x="0" y="56"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.Left" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeKey="$parent.Right" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.09375" right="0.90625" top="0" bottom="1.0"/>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<FontString name="$parentText" parentKey="title" text="" inherits="GameFontNormalSmall" justifyH="LEFT" justifyV="TOP">
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-5"/>
+					</Anchors>
+					<Color r="0.95" g="0.75" b="0.1"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<FontString inherits="GameFontNormalLarge"/>
+		<Scripts>
+			<OnEscapePressed>
+				self:ClearFocus()
+			</OnEscapePressed>
+			<OnEditFocusGained>
+				if self.disabled then
+					self:ClearFocus()
+				else
+					self:HighlightText()
+				end
+			</OnEditFocusGained>
+			<OnEditFocusLost>
+				self:HighlightText(0,0)
+			</OnEditFocusLost>
+            <!--<OnKeyUp>
+                local lastKeyCount = self.lastKeyCount or 0
+                local keyCount = string.len(self:GetText() or "")
+                local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint()
+                if (keyCount > lastKeyCount) and not self.hasMovedLeft then
+                    self:SetWidth(32)
+                    self.Left:SetPoint('TOPLEFT', -19, 0)
+                    self.Right:SetPoint('TOPRIGHT', 19, 0)
+                    self:SetPoint(point, xOfs - 8, yOfs)
+                    self.hasMovedLeft = true
+                elseif not (keyCount == lastKeyCount) and self.hasMovedLeft then
+                    self:SetWidth(16)
+                    self.Left:SetPoint('TOPLEFT', -27, 0)
+                    self.Right:SetPoint('TOPRIGHT', 27, 0)
+                    self:SetPoint(point, xOfs + 8, yOfs)
+                    self.hasMovedLeft = false
+                end
+                self.lastKeyCount = keyCount
+            </OnKeyUp>-->
+			<OnEnter>
+				
+			</OnEnter>
+			<OnLeave>
+				
+			</OnLeave>
+		</Scripts>
+	</EditBox>
 </Ui>
