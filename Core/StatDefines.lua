@@ -137,3 +137,4 @@ Me.StatDefines = {
         }
     }
 }
+Me:RegisterStatDefines()

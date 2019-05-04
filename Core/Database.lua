@@ -13,12 +13,7 @@ Me.db_defaults = {
     profile = {
         player = {
             attributes = {
-                strength = 0,
-                dexterity = 0,
-                constitution = 0,
-                charisma = 0,
-                intelligence = 0,
-                wisdom = 0
+                
             },
             skills = {
                 
@@ -27,13 +22,24 @@ Me.db_defaults = {
     }
 }
 
+function Me:RegisterStatDefines()
+    local defaultAttributes = self.db_defaults.profile.player.attributes
+    local defaultSkills = self.db_defaults.profile.player.skills
+    for _,v in ipairs(self.StatDefines.attributes) do
+        defaultAttributes[string.lower(v.name)] = 0
+    end
+    for _,v in ipairs(self.StatDefines.skills) do
+        defaultSkills[string.lower(v.name)] = false
+    end
+end
+
 function Me:GetPlayerData(playerName)
     local playerStore = self.db.global.playerStore
     local localPlayer = self.db.profile.player
     
     -- check if its the local player
     local localPlayerName = UnitName("player")
-    if playerName == (localPlayerName .. '-' .. GetRealmName()) then
+    if playerName == (localPlayerName .. '-' .. GetRealmName():gsub("[%s*%-*]", "")) then
         return localPlayer
     end
     

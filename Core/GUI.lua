@@ -5,32 +5,87 @@ local Me = DiceSheet
 
 local AceGUI = LibStub("AceGUI-3.0")
 
-local function loadCharacterSheet(unitName)
+function Me:reloadCharacterSheet()
     local headerPanel = DS_ContentSheet_Header
     local attributePanel = DS_ContentSheet_Attributes
     local skillPanel = DS_ContentSheet_Skills
+    local statData = nil
+    local rpData = nil
+    
+    if not Me.GUI.targetPlayer then
+        local fullCharName = nil
+        local charName, charRealm = UnitName("player")
+        if not charRealm then
+            charRealm = GetRealmName():gsub("[%s*%-*]", "")
+        end
+        fullCharName = charName .. '-' .. charRealm
+        Me.GUI.targetPlayer = fullCharName
+    end
+    
+    statData = Me:GetPlayerData(Me.GUI.targetPlayer)
+    if TRP3_API then
+        rpData = TRP3_API.utils.getCharacterInfoTab(Me.GUI.targetPlayer)
+    end
     
     --Setup Header
     local headerW, headerH = headerPanel:GetSize()
-    local charText = CreateFrame("Frame", nil, headerPanel, "DS_Misc_TitledTextDisplay")
-    charText:SetPoint("TOPLEFT", 10, -5)
-    charText.captionTitle:SetText("Character Name")
-    charText.captionText:SetText("Test 123")
+    local charText = nil
+    if not headerPanel.charText then
+        charText = CreateFrame("Frame", nil, headerPanel, "DS_Misc_TitledTextDisplay")
+        charText:SetPoint("TOPLEFT", 10, -5)
+        charText.captionTitle:SetText("Character Name")
+        headerPanel.charText = charText
+    else
+        charText = headerPanel.charText
+    end
     
-    local raceText = CreateFrame("Frame", nil, headerPanel, "DS_Misc_TitledTextDisplay")
-    raceText:SetPoint("TOPLEFT", (headerW/3) + 10, -5)
-    raceText.captionTitle:SetText("Race")
-    raceText.captionText:SetText("Test 123")
+    --check to see if we use TRP3
+    if TRP3_API then
+        local playerName = Me.GUI.targetPlayer
+        local splitName = string.split(playerName, '-')
+        if splitName[2] == GetRealmName():gsub("[%s*%-*]", "") then
+            playerName = splitName[1]
+        end
+        charText.captionText:SetText(TRP3_API.r.name(playerName))
+    else
+        -- if we dont, default charName
+        charText.captionText:SetText(Me.GUI.targetPlayer)
+    end
     
-    local classText = CreateFrame("Frame", nil, headerPanel, "DS_Misc_TitledTextDisplay")
-    classText:SetPoint("TOPLEFT", (headerW*2/3) + 10, -5)
-    classText.captionTitle:SetText("Class")
-    classText.captionText:SetText("Test 123")
+    local raceText = nil
+    if not headerPanel.raceText then
+        raceText = CreateFrame("Frame", nil, headerPanel, "DS_Misc_TitledTextDisplay")
+        raceText:SetPoint("TOPLEFT", (headerW/3) + 10, -5)
+        raceText.captionTitle:SetText("Race")
+        headerPanel.raceText = raceText
+    else
+        raceText = headerPanel.raceText
+    end
+    
+    raceText.captionText:SetText("")
+    if rpData then
+        raceText.captionText:SetText(rpData.characteristics.RA)
+    end
+    
+    local classText = nil
+    if not headerPanel.classText then
+        classText = CreateFrame("Frame", nil, headerPanel, "DS_Misc_TitledTextDisplay")
+        classText:SetPoint("TOPLEFT", (headerW*2/3) + 10, -5)
+        classText.captionTitle:SetText("Class")
+        headerPanel.classText = classText
+    else
+        classText = headerPanel.classText
+    end
+    
+    classText.captionText:SetText("")
+    if rpData then
+        classText.captionText:SetText(rpData.characteristics.CL)
+    end
     
     local pointsText = CreateFrame("Frame", nil, headerPanel, "DS_Misc_TitledTextDisplay")
     pointsText:SetPoint("TOPLEFT", (headerW*2/3) + 10, -45)
     pointsText.captionTitle:SetText("Unspent Points")
-    pointsText.captionText:SetText("Test 123")
+    pointsText.captionText:SetText('0')
     
     --Setup Attributes
     local attributeW, attributeH = attributePanel:GetSize()
@@ -51,7 +106,7 @@ local function loadCharacterSheet(unitName)
             local f = CreateFrame("EditBox", nil, attributePanel, "DS_AttributeBox")
             f:SetPoint("TOPLEFT", (attributeW/4 * i) - f:GetWidth()/2, 0 - (19 + (e-1) * 38))
             f.title:SetText(v.short)
-            f:SetText('+0')
+            f:SetText(string.format('+%s', statData.attributes[string.lower(v.name)]))
             f.disabled = true
             f.data = v
             
@@ -59,6 +114,8 @@ local function loadCharacterSheet(unitName)
             i = i + 1
         else
             -- reuse
+            local f = attributePanel.attibutes[v.short]
+            f:SetText(string.format('+%s', statData.attributes[string.lower(v.name)]))
         end
     end
     
@@ -83,14 +140,17 @@ local function loadCharacterSheet(unitName)
             i = i + 1
         else
             -- reuse
+            local f = skillPanel.skills[v.name]
+            --f:SetText(string.format('+%s', statData.skills[string.lower(v.name)]))
         end
     end
-    
 end
 
 function Me:ShowMainFrame()
     self.GUI.MainFrame:Show()
     self.GUI.MainFrame:Raise()
+    
+    self:reloadCharacterSheet()
 end
 
 function Me:HideMainFrame()
@@ -109,8 +169,6 @@ function Me:InitGUI()
     -- create GUI storage table
     self.GUI = {}
     self.GUI.MainFrame = DS_MainFrame
-    
-    loadCharacterSheet()
     
     tinsert(UISpecialFrames, DS_MainFrame:GetName())
 end
