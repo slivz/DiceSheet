@@ -1,0 +1,44 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+    
+    <Frame name="DS_Misc_TextDisplay" virtual="true">
+        <Size x="128" y="16"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="captionText" text="[Caption Text]" 
+                    inherits="GameFontNormal" wordwrap="false">
+                    <Size x="0" y="16"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                    </Anchors>
+                    <Color r="0.95" g="0.95" b="0.95"/>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+    
+    <Frame name="DS_Misc_TitledTextDisplay" virtual="true">
+        <Size x="128" y="32"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="captionTitle" text="[Caption Title]" 
+                    inherits="GameFontNormal" wordwrap="false">
+                    <Size x="0" y="16"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                    </Anchors>
+                    <Color r="0.95" g="0.95" b="0.95"/>
+                </FontString>
+                <FontString parentKey="captionText" text="[Caption Text]" 
+                    inherits="GameFontNormal" wordwrap="false">
+                    <Size x="0" y="16"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                    </Anchors>
+                    <Color r="0.95" g="0.95" b="0.95"/>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+</Ui>

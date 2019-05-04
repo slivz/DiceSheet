@@ -1,5 +1,8 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
     <Include file="container.xml"/>
+    <Include file="misc.xml"/>
     
     <Frame name="DS_MainFrame_Template" toplevel="true" parent="UIParent" 
         frameStrata="MEDIUM" enableMouse="true" clampedToScreen="true" virtual="true">
